@@ -5,49 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
 
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-        .body {
-            height: 100vh;
-            width: 100%;
-            /* border: 1px solid red; */
-            background-color: rgb(16, 16, 16);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .main {
-            height: 65vh;
-            width: 25vw;
-            font-family: sans-serif;
-            font-weight: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: rgb(16, 16, 16);
-            border-radius: 20px;
-            box-shadow: 0 -10px 10px rgba(215, 215, 215, 0.1),
-                0 4px 20px rgba(205, 205, 205, 0.15);
-            color: rgb(255, 255, 255);
-            text-align: center;
-        }
-
-        .box {
-            margin: 20px 0px;
-        }
-
-        .icons {
-            /* color: white; */
-
-        }
-    </style>
 </head>
 
 <body>
@@ -88,36 +47,10 @@
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script>
 
-
-
-        async function getWeather(city) {
-            const key = 'ce28de65782e7dd7b476cce63daa2088'; 
-            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
-            try {
-                const response = await fetch(url);
-                const data = await response.json();
-
-                if (data.cod === 200) {
-                    const { main, wind, weather } = data;
-                    const iconCode = weather[0].icon;
-                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-
-                    document.getElementsByTagName("img").src=iconUrl
-                    document.getElementById("temp_vl").innerHTML=main.temp;
-                    document.getElementById("words_val").innerHTML=weather[0].description
-                } else {
-                    console.error('Error:', data.message);
-                }
-            } catch (error) {
-                console.error('Error fetching weather data:', error);
-            }
-        }
-    </script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    <script src="./index.js"></script>
 </body>
 
 </html>
