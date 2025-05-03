@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        .body {
+            height: 100vh;
+            width: 100%;
+            /* border: 1px solid red; */
+            background-color: rgb(16, 16, 16);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main {
+            height: 65vh;
+            width: 25vw;
+            font-family: sans-serif;
+            font-weight: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgb(16, 16, 16);
+            border-radius: 20px;
+            box-shadow: 0 -10px 10px rgba(215, 215, 215, 0.1),
+                0 4px 20px rgba(205, 205, 205, 0.15);
+            color: rgb(255, 255, 255);
+            text-align: center;
+        }
+
+        .box {
+            margin: 20px 0px;
+        }
+
+        .icons {
+            /* color: white; */
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="body">
+        <div class="main box">
+
+            <div class="city">
+                <h3>
+                    <ion-icon class="icons" name="location-outline"></ion-icon>
+                    <span class="city_val">
+                        Delhi
+                    </span>
+                </h3>
+            </div>
+            <div class="words box">
+
+                <h5 id="words_val">
+                    Cloudy
+                </h5>
+
+            </div>
+            <div class="temp box">
+                <h1 class="temp_val">
+                    <span id="temp_vl">0<sup>o</sup>C</span>
+                </h1>
+            </div>
+            <div class="clouds box">
+                <h2 id="clouds_val">
+                    <img id="clouds_val" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAUhJREFUeNrt230NgzAQh2GkIAUJyJgMJCABCZNQKcxBHdyOpFkyEkYGV9oL75Lff2Rwz8pXe2tEpLlzGgAAAAAAAAAAYHsDg4+8Hp1m0ATNrJGNzGmbZdvOZN+lAFLRkyb+KHgvMX1H5wYgFR5OFL2VcATiMgA9uFbzzFD4Oss+2qoA9ID6k0P9yKnRVwGgBzJeWPg6Y1GAdIGSwpmKAFRS/C5CFoDCw/6v08EcIF3wpNL0WQHSrS5WDBDXt0hrgGfFxX+eE7IApCc8cZIuB0BwBBBMAZz9+l+jwApgcggwWQJEhwDRBMDp8P+cBhYAg2OAwQIgOAYIFgCzY4DZAkBcB4C7AywvcIwAAADgNsiDEI/CvAzxOsyECFNiTIoyLc7CCEtjLI6yPE6DBC0yNEnRJkejJK2yNEvTLs8fJgAAAAAAAADg1nkDlR7XfJiH1ggAAAAASUVORK5CYII=" alt="">
+                </h2>
+            </div>
+            <div class="refresh box" onclick="getWeather('DELHI');">
+                <h2>
+                    <ion-icon class="icons" name="refresh-outline"></ion-icon>
+                </h2>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+
+
+
+        async function getWeather(city) {
+            const key = 'ce28de65782e7dd7b476cce63daa2088'; 
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${key}&units=metric`;
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.cod === 200) {
+                    const { main, wind, weather } = data;
+                    const iconCode = weather[0].icon;
+                    const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+
+                    document.getElementsByTagName("img").src=iconUrl
+                    document.getElementById("temp_vl").innerHTML=main.temp;
+                    document.getElementById("words_val").innerHTML=weather[0].description
+                } else {
+                    console.error('Error:', data.message);
+                }
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
